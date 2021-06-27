@@ -1,0 +1,484 @@
+@extends('layouts.app')
+
+
+
+
+
+
+
+@section('content')
+
+<div class="page-content">
+
+
+
+<div class="row">
+
+                    <div class="col-md-12 stretch-card">
+
+                        <div class="card">
+
+                            <div class="card-body">
+
+
+
+                                      @if (count($errors) > 0)
+
+         <div class = "alert alert-danger">
+
+            <ul>
+
+               @foreach ($errors->all() as $error)
+
+                  <li>{{ $error }}</li>
+
+               @endforeach
+
+            </ul>
+
+         </div>
+
+      @endif
+
+
+
+                                @if(session()->has('message'))
+
+                <div class="alert alert-success">
+
+                    {{ session()->get('message') }}
+
+                </div>
+
+                @endif
+
+                                <h6 class="card-title">Update Supervisor Profile</h6>
+
+                                    <form class="forms-sample" action="{{route('supervisorsModule.update')}}" method="post">
+
+                {{ csrf_field() }}
+
+                <input type="hidden" value="{{$users->id}}" name="user_id">
+
+
+
+                                         <div class="row">
+
+                                             <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Supervisor's Warehouse</label>
+
+                                                    <select class="form-control" id="warehouse_id" name="warehouse_id">
+
+                                                        
+
+                                                        @foreach($warehouses as $warehouse)
+
+                                                            <option value="{{$warehouse->id}}" <?php if($warehouse->id==$users->warehouse_id) { echo "selected=selected"; }?>>{{$warehouse->name}}</option>
+
+
+
+                                                        @endforeach
+
+                                                    </select>
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                             <div class="col-sm-4"
+
+
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Supervisor Contact Number</label>
+
+                                                    <input type="text" class="form-control" id="phone_number" name="phone_number" autocomplete="off" placeholder="Contact Number" value="{{$users->phone_number}}" onkeypress="return isNumberKey(event)">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                             <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Supervisor Email</label>
+
+                                                    <input type="email" class="form-control" id="email" name="email" autocomplete="off" placeholder="Agent Last Name" value="{{$users->email}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+                                        </div><!-- Row -->
+
+
+
+                                        <div class="row">
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Supervisor First Name</label>
+
+                                                    <input type="text" class="form-control" id="first_name" name="first_name" autocomplete="off" placeholder="Agent First Name" value="{{$users->first_name}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                             <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Supervisor Last Name</label>
+
+                                                    <input type="text" class="form-control" id="last_name" name="last_name" autocomplete="off" placeholder="Agent Last Name" value="{{$users->last_name}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Father's Name</label>
+
+                                                    <input type="text" class="form-control id="fathers_name" name="fathers_name" autocomplete="off" placeholder="Father's Name" value="{{$users->fathers_name}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                        </div><!-- Row -->
+
+                                        <div class="row">
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Date of Birth</label>
+
+                                                    <input type="text" class="form-control" id="dob"  name="dob" autocomplete="off" placeholder="Date of Birth" value="{{$users->dob}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Blood Group</label>
+
+                                                    <select name="blood_group" class="form-control" id="exampleFormControlSelect1" >
+
+                                                       <option selected="" disabled="">Select Blood Group</option>
+
+                                                        <option value="A+">A+</option>
+
+                                                        <option value="B+">B+</option>
+
+                                                        <option value="O+">O+</option>
+
+                                                        <option value="AB+">AB+</option>
+
+                                                        <option value="A-">A-</option>
+
+                                                        <option value="B-">B-</option>
+
+                                                        <option value="O-">O-</option>
+
+                                                        <option value="AB-">AB-</option>
+
+                                                    </select>
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            
+
+                                        </div><!-- Row -->
+
+
+
+
+
+
+
+
+
+                                        <div class="row">
+
+                                            <h6 class="card-title">Local Address</h6>
+
+                                                </div>
+
+                                        <div class="row">
+
+
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Address Line 1</label>
+
+                                                   <input type="text" class="form-control" id="local_address_line_1"  name="local_address_line_1" autocomplete="off" placeholder="Address Line 1" value="{{$users->local_address_line_1}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Address Line 2</label>
+
+                                                    <input type="text" class="form-control" id="local_address_line_2"  name="local_address_line_2" autocomplete="off" placeholder="Address Line 2" value="{{$users->local_address_line_2}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">State</label>
+
+                                                   
+
+                                                      <select class="form-control" name="local_address_state" id="exampleFormControlSelect1">
+
+                                                    <option selected="" disabled="">Select State</option>
+
+                                                      <option>Select Warehouse</option>
+
+                                                        @foreach($states as $state)
+
+                                                            <option value="{{$state->id}}" <?php if($state->id==$users->local_address_state) { echo "selected=selected"; }?>>{{$state->name}}</option>
+
+
+
+                                                        @endforeach
+
+                                                </select>
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">City</label>
+
+                                                     <select class="form-control" name="local_address_city" id="exampleFormControlSelect1">
+
+                                                    <option selected="" disabled="">Select City</option>
+
+                                              
+
+                                                        @foreach($cities as $city)
+
+                                                            <option value="{{$city->id}}" <?php if($city->id==$users->local_address_city) { echo "selected=selected"; }?>>{{$city->name}}</option>
+
+
+
+                                                        @endforeach
+
+                                                </select>
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Pincode</label>
+
+                                                    <input type="text" class="form-control" id="local_address_pincode"  name="local_address_pincode" autocomplete="off" placeholder="Pincode" onkeypress="return isNumberKey(event)" value="{{$users->local_address_pincode}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                        </div><!-- Row -->
+
+                                    
+
+
+
+                                        <div class="row">
+
+                                            <h6 class="card-title">Permanent Address</h6>
+
+                                                </div>
+
+                                          <div class="row">
+
+                                             <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Address Line 1</label>
+
+                                                   <input type="text" class="form-control" id="permanent_address_line_1"  name="permanent_address_line_1" autocomplete="off" placeholder="Address Line 1" value="{{$users->permanent_address_line_1}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Address Line 2</label>
+
+                                                    <input type="text" class="form-control" id="permanent_address_line_2"  name="permanent_address_line_2" autocomplete="off" placeholder="Address Line 2" value="{{$users->permanent_address_line_2}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">State</label>
+
+                                                   
+
+                                                      <select class="form-control" name="permanent_address_state" id="exampleFormControlSelect1" >
+
+                                                    <option selected="" disabled="">Select State</option>
+
+                                                   <option>Select Warehouse</option>
+
+                                                        @foreach($states as $state)
+
+                                                            <option value="{{$state->id}}" <?php if($state->id==$users->permanent_address_state) { echo "selected=selected"; }?>>{{$state->name}}</option>
+
+
+
+                                                        @endforeach
+
+                                                </select>
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">City</label>
+
+                                                     <select class="form-control" name="permanent_address_city" id="exampleFormControlSelect1">
+
+                                                    <option selected="" disabled="">Select City</option>
+
+                                               
+
+                                                        @foreach($cities as $city)
+
+                                                            <option value="{{$city->id}}" <?php if($city->id==$users->permanent_address_city) { echo "selected=selected"; }?>>{{$city->name}}</option>
+
+
+
+                                                        @endforeach
+
+                                                </select>
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                            <div class="col-sm-4">
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label">Pincode</label>
+
+                                                    <input type="text" class="form-control" id="permanent_address_pincode"  name="permanent_address_pincode" autocomplete="off" placeholder="Pincode" onkeypress="return isNumberKey(event)" value="{{$users->permanent_address_pincode}}">
+
+                                                </div>
+
+                                            </div><!-- Col -->
+
+                                        </div><!-- Row -->
+
+                                    
+
+
+
+                                         
+
+                                      
+
+                                       
+
+
+
+                                       
+
+
+
+                                     <button class="btn btn-light">Back</button>
+
+                                     <button type="submit" class="btn btn-primary mr-2">Update Supservisor</button>
+
+                                       </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+</div>
+
+@endsection
+
+
+
+
+
+      <script>
+
+      function isNumberKey(evt){
+
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+        return false;
+
+    return true;
+
+}
+
+</script>
